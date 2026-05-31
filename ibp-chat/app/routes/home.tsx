@@ -1,14 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function meta() {
   return [{ title: "IBP Chat — Workshop skeleton" }];
 }
+
+type ModelOption = { id: string; name: string };
 
 export default function Home() {
   const [input, setInput] = useState("");
   const [reply, setReply] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [models, setModels] = useState<ModelOption[]>([]);
+  const [model, setModel] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch("/api/models");
+        const data = (await res.json()) as { models?: ModelOption[]; error?: string };
+        if (cancelled) return;
+        const list = data.models ?? [];
+        setModels(list);
+        if (list.length > 0) setModel((current) => current || list[0].id);
+      } catch {
+        /* ignore — leave dropdown empty, server uses default */
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   async function send() {
     if (!input.trim() || busy) return;
@@ -19,7 +42,7 @@ export default function Home() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: input }),
+        body: JSON.stringify({ prompt: input, model }),
       });
       const data = (await res.json()) as { reply?: string; error?: string };
       if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
@@ -37,7 +60,7 @@ export default function Home() {
         <header>
           <h1 className="text-xl font-semibold">IBP Chat — Workshop skeleton</h1>
           <p className="text-sm text-gray-500">
-            Hard-coded model · Follow the workshop instructions to extend it.
+            Pick a model and ask a question.
           </p>
         </header>
 
@@ -55,13 +78,31 @@ export default function Home() {
             rows={3}
             className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
           />
-          <button
-            type="submit"
-            disabled={busy || !input.trim()}
-            className="self-end rounded-md bg-blue-600 px-4 py-2 text-sm text-white disabled:opacity-50"
-          >
-            {busy ? "…" : "Send"}
-          </button>
+          <div className="flex items-center justify-between gap-2">
+            <select
+              value={model}
+              onChange={(e) => setModel(e.target.value)}
+              disabled={models.length === 0}
+              className="rounded-md border border-gray-300 bg-white px-2 py-1.5 text-sm"
+            >
+              {models.length === 0 ? (
+                <option value="">Loading models…</option>
+              ) : (
+                models.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.name}
+                  </option>
+                ))
+              )}
+            </select>
+            <button
+              type="submit"
+              disabled={busy || !input.trim()}
+              className="rounded-md bg-blue-600 px-4 py-2 text-sm text-white disabled:opacity-50"
+            >
+              {busy ? "…" : "Send"}
+            </button>
+          </div>
         </form>
 
         {error && <div className="text-sm text-red-600">{error}</div>}

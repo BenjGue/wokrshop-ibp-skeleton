@@ -19,6 +19,12 @@ function getClient(): Promise<CopilotClient> {
   return clientPromise;
 }
 
+export async function listModels(): Promise<Array<{ id: string; name: string }>> {
+  const client = await getClient();
+  const models = await client.listModels();
+  return models.map((m) => ({ id: m.id, name: m.name }));
+}
+
 export async function askOnce(model: string, prompt: string): Promise<string> {
   const client = await getClient();
   const session = await client.createSession({
