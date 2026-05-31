@@ -25,12 +25,19 @@ export async function listModels(): Promise<Array<{ id: string; name: string }>>
   return models.map((m) => ({ id: m.id, name: m.name }));
 }
 
-export async function askOnce(model: string, prompt: string): Promise<string> {
+export async function askOnce(
+  model: string,
+  prompt: string,
+  systemMessage?: string,
+): Promise<string> {
   const client = await getClient();
   const session = await client.createSession({
     model,
     streaming: false,
     onPermissionRequest: approveAll,
+    ...(systemMessage
+      ? { systemMessage: { mode: "replace" as const, content: systemMessage } }
+      : {}),
   });
   try {
     const result = await session.sendAndWait({ prompt }, 180_000);
