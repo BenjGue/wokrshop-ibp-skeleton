@@ -1,0 +1,1491 @@
+{
+  "meta": {
+    "region": "AMEA",
+    "current_cycle": "IBP Feb-26",
+    "previous_cycle": "IBP Jan-26",
+    "budget": "B26",
+    "actuals_ly": "A25",
+    "row_count": 35392,
+    "zone_count": 7,
+    "country_count": 44,
+    "brand_count": 54
+  },
+  "waterfall": {
+    "a_ly": 611.6,
+    "budget": 655.1,
+    "ibp_prev": 667.9,
+    "ibp_current": 670.9,
+    "vs_budget": 15.8,
+    "vs_prev": 3.0,
+    "vs_budget_pct": 2.4,
+    "vs_prev_pct": 0.4,
+    "zone_ibp": {
+      "AMET": 184.4,
+      "ANZ": 120.8,
+      "ASEA": 169.8,
+      "CN": 70.8,
+      "JP (SSP)": 71.2,
+      "SA": 52.4,
+      "Others": 1.5
+    },
+    "zone_budget": {
+      "AMET": 180.5,
+      "ANZ": 118.4,
+      "ASEA": 165.5,
+      "CN": 68.9,
+      "JP (SSP)": 69.3,
+      "SA": 51.0,
+      "Others": 1.5
+    },
+    "zone_prev": {
+      "AMET": 183.6,
+      "ANZ": 120.5,
+      "ASEA": 168.8,
+      "CN": 70.4,
+      "JP (SSP)": 71.0,
+      "SA": 52.1,
+      "Others": 1.5
+    },
+    "zone_diffs": {
+      "AMET": 0.7,
+      "ANZ": 0.4,
+      "ASEA": 1.0,
+      "CN": 0.4,
+      "JP (SSP)": 0.2,
+      "SA": 0.3,
+      "Others": -0.0
+    }
+  },
+  "zones": {
+    "AMET": [
+      {
+        "country": "Saudi Arabia",
+        "ibp": 36.3,
+        "prev": 35.8,
+        "budget": 35.5,
+        "a_ly": 33.2,
+        "vs_prev": 0.5,
+        "vs_budget": 0.7
+      },
+      {
+        "country": "Algeria",
+        "ibp": 6.0,
+        "prev": 5.9,
+        "budget": 5.8,
+        "a_ly": 5.4,
+        "vs_prev": 0.1,
+        "vs_budget": 0.2
+      },
+      {
+        "country": "Sudan",
+        "ibp": 8.1,
+        "prev": 8.0,
+        "budget": 7.9,
+        "a_ly": 7.4,
+        "vs_prev": 0.1,
+        "vs_budget": 0.1
+      },
+      {
+        "country": "Turkey",
+        "ibp": 40.2,
+        "prev": 40.4,
+        "budget": 39.6,
+        "a_ly": 36.8,
+        "vs_prev": -0.1,
+        "vs_budget": 0.7
+      },
+      {
+        "country": "UAE",
+        "ibp": 28.0,
+        "prev": 27.9,
+        "budget": 27.4,
+        "a_ly": 25.4,
+        "vs_prev": 0.1,
+        "vs_budget": 0.6
+      },
+      {
+        "country": "Angola",
+        "ibp": 0.8,
+        "prev": 0.8,
+        "budget": 0.8,
+        "a_ly": 0.8,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Bahrain",
+        "ibp": 0.7,
+        "prev": 0.7,
+        "budget": 0.6,
+        "a_ly": 0.6,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Egypt",
+        "ibp": 9.4,
+        "prev": 9.3,
+        "budget": 9.1,
+        "a_ly": 8.7,
+        "vs_prev": 0.0,
+        "vs_budget": 0.3
+      },
+      {
+        "country": "Iran",
+        "ibp": 4.0,
+        "prev": 4.0,
+        "budget": 3.9,
+        "a_ly": 3.6,
+        "vs_prev": -0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "country": "Iraq",
+        "ibp": 1.5,
+        "prev": 1.5,
+        "budget": 1.4,
+        "a_ly": 1.3,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Israel",
+        "ibp": 7.4,
+        "prev": 7.4,
+        "budget": 7.3,
+        "a_ly": 6.8,
+        "vs_prev": -0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "country": "Jordan",
+        "ibp": 0.8,
+        "prev": 0.8,
+        "budget": 0.8,
+        "a_ly": 0.7,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Kuwait",
+        "ibp": 1.9,
+        "prev": 1.9,
+        "budget": 1.9,
+        "a_ly": 1.8,
+        "vs_prev": -0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Lebanon",
+        "ibp": 2.9,
+        "prev": 2.9,
+        "budget": 2.9,
+        "a_ly": 2.7,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "country": "Libya",
+        "ibp": 1.2,
+        "prev": 1.2,
+        "budget": 1.2,
+        "a_ly": 1.1,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Morocco",
+        "ibp": 6.6,
+        "prev": 6.5,
+        "budget": 6.4,
+        "a_ly": 6.1,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "country": "Namibia",
+        "ibp": 0.7,
+        "prev": 0.7,
+        "budget": 0.6,
+        "a_ly": 0.6,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Oman",
+        "ibp": 2.1,
+        "prev": 2.1,
+        "budget": 2.1,
+        "a_ly": 2.0,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Pakistan",
+        "ibp": 9.7,
+        "prev": 9.7,
+        "budget": 9.4,
+        "a_ly": 8.9,
+        "vs_prev": 0.0,
+        "vs_budget": 0.2
+      },
+      {
+        "country": "Qatar",
+        "ibp": 1.5,
+        "prev": 1.5,
+        "budget": 1.5,
+        "a_ly": 1.4,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "SSA HQ",
+        "ibp": 1.1,
+        "prev": 1.1,
+        "budget": 1.0,
+        "a_ly": 1.0,
+        "vs_prev": -0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "South Africa",
+        "ibp": 11.6,
+        "prev": 11.6,
+        "budget": 11.3,
+        "a_ly": 10.6,
+        "vs_prev": -0.0,
+        "vs_budget": 0.3
+      },
+      {
+        "country": "Tunisia",
+        "ibp": 2.1,
+        "prev": 2.0,
+        "budget": 2.0,
+        "a_ly": 1.9,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      }
+    ],
+    "ANZ": [
+      {
+        "country": "Australia",
+        "ibp": 116.4,
+        "prev": 116.2,
+        "budget": 114.1,
+        "a_ly": 107.0,
+        "vs_prev": 0.3,
+        "vs_budget": 2.3
+      },
+      {
+        "country": "New Zealand",
+        "ibp": 4.4,
+        "prev": 4.3,
+        "budget": 4.3,
+        "a_ly": 3.9,
+        "vs_prev": 0.1,
+        "vs_budget": 0.1
+      }
+    ],
+    "ASEA": [
+      {
+        "country": "Indonesia",
+        "ibp": 31.5,
+        "prev": 31.1,
+        "budget": 30.6,
+        "a_ly": 28.5,
+        "vs_prev": 0.4,
+        "vs_budget": 0.8
+      },
+      {
+        "country": "Philippines",
+        "ibp": 17.1,
+        "prev": 16.7,
+        "budget": 16.6,
+        "a_ly": 15.4,
+        "vs_prev": 0.4,
+        "vs_budget": 0.5
+      },
+      {
+        "country": "Singapore",
+        "ibp": 11.2,
+        "prev": 11.0,
+        "budget": 10.8,
+        "a_ly": 10.2,
+        "vs_prev": 0.2,
+        "vs_budget": 0.4
+      },
+      {
+        "country": "Taiwan",
+        "ibp": 12.3,
+        "prev": 12.1,
+        "budget": 11.9,
+        "a_ly": 11.2,
+        "vs_prev": 0.2,
+        "vs_budget": 0.4
+      },
+      {
+        "country": "CBEC ASEA",
+        "ibp": 1.2,
+        "prev": 1.2,
+        "budget": 1.2,
+        "a_ly": 1.1,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Cambodia",
+        "ibp": 2.2,
+        "prev": 2.2,
+        "budget": 2.2,
+        "a_ly": 2.0,
+        "vs_prev": -0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "Hong Kong",
+        "ibp": 4.0,
+        "prev": 4.0,
+        "budget": 3.9,
+        "a_ly": 3.6,
+        "vs_prev": -0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "country": "Malaysia",
+        "ibp": 17.0,
+        "prev": 17.0,
+        "budget": 16.8,
+        "a_ly": 15.7,
+        "vs_prev": -0.0,
+        "vs_budget": 0.2
+      },
+      {
+        "country": "SEA China",
+        "ibp": 1.9,
+        "prev": 1.9,
+        "budget": 1.9,
+        "a_ly": 1.7,
+        "vs_prev": -0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "country": "South Korea",
+        "ibp": 32.6,
+        "prev": 32.5,
+        "budget": 31.8,
+        "a_ly": 29.6,
+        "vs_prev": 0.0,
+        "vs_budget": 0.8
+      },
+      {
+        "country": "Thailand",
+        "ibp": 22.9,
+        "prev": 22.9,
+        "budget": 22.3,
+        "a_ly": 20.9,
+        "vs_prev": 0.0,
+        "vs_budget": 0.6
+      },
+      {
+        "country": "Vietnam",
+        "ibp": 16.0,
+        "prev": 16.1,
+        "budget": 15.6,
+        "a_ly": 14.7,
+        "vs_prev": -0.0,
+        "vs_budget": 0.4
+      }
+    ],
+    "CN": [
+      {
+        "country": "China",
+        "ibp": 70.8,
+        "prev": 70.4,
+        "budget": 68.9,
+        "a_ly": 65.0,
+        "vs_prev": 0.4,
+        "vs_budget": 1.9
+      }
+    ],
+    "JP (SSP)": [
+      {
+        "country": "Japan SSP",
+        "ibp": 69.3,
+        "prev": 69.0,
+        "budget": 67.5,
+        "a_ly": 62.7,
+        "vs_prev": 0.3,
+        "vs_budget": 1.8
+      },
+      {
+        "country": "Japan JV",
+        "ibp": 1.9,
+        "prev": 2.0,
+        "budget": 1.9,
+        "a_ly": 1.8,
+        "vs_prev": -0.1,
+        "vs_budget": 0.0
+      }
+    ],
+    "SA": [
+      {
+        "country": "Bangladesh",
+        "ibp": 7.2,
+        "prev": 7.1,
+        "budget": 6.9,
+        "a_ly": 6.4,
+        "vs_prev": 0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "country": "India",
+        "ibp": 41.5,
+        "prev": 41.4,
+        "budget": 40.5,
+        "a_ly": 37.0,
+        "vs_prev": 0.1,
+        "vs_budget": 1.0
+      },
+      {
+        "country": "Sri Lanka",
+        "ibp": 3.7,
+        "prev": 3.6,
+        "budget": 3.6,
+        "a_ly": 3.4,
+        "vs_prev": 0.1,
+        "vs_budget": 0.1
+      }
+    ],
+    "Others": [
+      {
+        "country": "International Entries",
+        "ibp": 1.5,
+        "prev": 1.5,
+        "budget": 1.5,
+        "a_ly": 1.3,
+        "vs_prev": -0.0,
+        "vs_budget": 0.0
+      }
+    ]
+  },
+  "quarterly": [
+    {
+      "quarter": "Q1",
+      "ibp": 173.7,
+      "budget": 169.6,
+      "prev": 172.8,
+      "a_ly": 157.8,
+      "vs_budget": 4.1,
+      "vs_prev": 0.9
+    },
+    {
+      "quarter": "Q2",
+      "ibp": 156.9,
+      "budget": 153.5,
+      "prev": 156.1,
+      "a_ly": 143.2,
+      "vs_budget": 3.4,
+      "vs_prev": 0.8
+    },
+    {
+      "quarter": "Q3",
+      "ibp": 162.2,
+      "budget": 158.1,
+      "prev": 161.4,
+      "a_ly": 147.4,
+      "vs_budget": 4.1,
+      "vs_prev": 0.8
+    },
+    {
+      "quarter": "Q4",
+      "ibp": 178.0,
+      "budget": 173.8,
+      "prev": 177.6,
+      "a_ly": 163.2,
+      "vs_budget": 4.2,
+      "vs_prev": 0.4
+    }
+  ],
+  "brands": {
+    "AMET": [
+      {
+        "brand": "OPTIVUE",
+        "ibp": 24.9,
+        "prev": 25.2,
+        "budget": 24.6,
+        "vs_prev": -0.3,
+        "vs_budget": 0.4
+      },
+      {
+        "brand": "KIDDOSAN",
+        "ibp": 18.8,
+        "prev": 18.6,
+        "budget": 18.5,
+        "vs_prev": 0.2,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "YOUTHGEN",
+        "ibp": 11.9,
+        "prev": 11.7,
+        "budget": 11.6,
+        "vs_prev": 0.2,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "ANATIDE",
+        "ibp": 11.0,
+        "prev": 10.9,
+        "budget": 10.7,
+        "vs_prev": 0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "BREEZAL",
+        "ibp": 14.4,
+        "prev": 14.3,
+        "budget": 14.1,
+        "vs_prev": 0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "ULCERMIN",
+        "ibp": 5.6,
+        "prev": 5.5,
+        "budget": 5.4,
+        "vs_prev": 0.1,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "KIDNYTONE",
+        "ibp": 8.3,
+        "prev": 8.2,
+        "budget": 8.2,
+        "vs_prev": 0.1,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "ACTIPURE",
+        "ibp": 8.5,
+        "prev": 8.5,
+        "budget": 8.3,
+        "vs_prev": 0.1,
+        "vs_budget": 0.2
+      },
+      {
+        "brand": "ELYSIA",
+        "ibp": 3.6,
+        "prev": 3.6,
+        "budget": 3.5,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "COLDORA",
+        "ibp": 2.3,
+        "prev": 2.3,
+        "budget": 2.3,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "DEFENSO",
+        "ibp": 0.8,
+        "prev": 0.8,
+        "budget": 0.8,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "brand": "KINDREST",
+        "ibp": 0.7,
+        "prev": 0.7,
+        "budget": 0.6,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "brand": "BIOLEAN",
+        "ibp": 12.8,
+        "prev": 12.8,
+        "budget": 12.5,
+        "vs_prev": 0.0,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "MUSCLEEZE",
+        "ibp": 3.4,
+        "prev": 3.4,
+        "budget": 3.3,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "VIVASOL",
+        "ibp": 1.5,
+        "prev": 1.5,
+        "budget": 1.4,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      }
+    ],
+    "ANZ": [
+      {
+        "brand": "POLLINEX",
+        "ibp": 37.8,
+        "prev": 37.2,
+        "budget": 36.6,
+        "vs_prev": 0.5,
+        "vs_budget": 1.2
+      },
+      {
+        "brand": "URODEX",
+        "ibp": 26.9,
+        "prev": 27.2,
+        "budget": 26.6,
+        "vs_prev": -0.4,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "IRONVITA",
+        "ibp": 19.6,
+        "prev": 19.5,
+        "budget": 19.4,
+        "vs_prev": 0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "JOINTAID",
+        "ibp": 32.2,
+        "prev": 32.1,
+        "budget": 31.6,
+        "vs_prev": 0.1,
+        "vs_budget": 0.6
+      },
+      {
+        "brand": "COLDORA",
+        "ibp": 1.2,
+        "prev": 1.2,
+        "budget": 1.2,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "brand": "WOMENTIDE",
+        "ibp": 3.2,
+        "prev": 3.1,
+        "budget": 3.1,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      }
+    ],
+    "ASEA": [
+      {
+        "brand": "COLDORA",
+        "ibp": 14.8,
+        "prev": 14.4,
+        "budget": 14.4,
+        "vs_prev": 0.4,
+        "vs_budget": 0.4
+      },
+      {
+        "brand": "ZINCURA",
+        "ibp": 7.5,
+        "prev": 7.4,
+        "budget": 7.3,
+        "vs_prev": 0.2,
+        "vs_budget": 0.2
+      },
+      {
+        "brand": "YIELDFIT",
+        "ibp": 9.9,
+        "prev": 9.7,
+        "budget": 9.6,
+        "vs_prev": 0.2,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "VIVASOL",
+        "ibp": 12.5,
+        "prev": 12.3,
+        "budget": 12.1,
+        "vs_prev": 0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "DEFENSO",
+        "ibp": 11.5,
+        "prev": 11.4,
+        "budget": 11.2,
+        "vs_prev": 0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "BIOLEAN",
+        "ibp": 8.0,
+        "prev": 7.8,
+        "budget": 7.7,
+        "vs_prev": 0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "HYPNORA",
+        "ibp": 9.5,
+        "prev": 9.6,
+        "budget": 9.3,
+        "vs_prev": -0.1,
+        "vs_budget": 0.2
+      },
+      {
+        "brand": "PEDIASOFT",
+        "ibp": 13.4,
+        "prev": 13.3,
+        "budget": 13.0,
+        "vs_prev": 0.1,
+        "vs_budget": 0.4
+      },
+      {
+        "brand": "YALORA",
+        "ibp": 1.2,
+        "prev": 1.2,
+        "budget": 1.2,
+        "vs_prev": 0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "brand": "XANTHIA",
+        "ibp": 8.9,
+        "prev": 8.9,
+        "budget": 8.7,
+        "vs_prev": -0.0,
+        "vs_budget": 0.2
+      },
+      {
+        "brand": "NIGHTREST",
+        "ibp": 1.3,
+        "prev": 1.3,
+        "budget": 1.2,
+        "vs_prev": -0.0,
+        "vs_budget": 0.0
+      },
+      {
+        "brand": "THROATEASE",
+        "ibp": 2.7,
+        "prev": 2.7,
+        "budget": 2.6,
+        "vs_prev": -0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "ANATIDE",
+        "ibp": 12.8,
+        "prev": 12.8,
+        "budget": 12.7,
+        "vs_prev": -0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "RESPIROX",
+        "ibp": 4.2,
+        "prev": 4.2,
+        "budget": 4.1,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "OPTIVUE",
+        "ibp": 2.3,
+        "prev": 2.3,
+        "budget": 2.2,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      }
+    ],
+    "CN": [
+      {
+        "brand": "CALMARA",
+        "ibp": 28.7,
+        "prev": 28.4,
+        "budget": 27.8,
+        "vs_prev": 0.3,
+        "vs_budget": 0.9
+      },
+      {
+        "brand": "DUOFRESH",
+        "ibp": 12.9,
+        "prev": 12.8,
+        "budget": 12.6,
+        "vs_prev": 0.2,
+        "vs_budget": 0.4
+      },
+      {
+        "brand": "LINEAFLEX",
+        "ibp": 18.5,
+        "prev": 18.6,
+        "budget": 18.2,
+        "vs_prev": -0.1,
+        "vs_budget": 0.3
+      },
+      {
+        "brand": "JUVENTRA",
+        "ibp": 10.7,
+        "prev": 10.6,
+        "budget": 10.3,
+        "vs_prev": 0.0,
+        "vs_budget": 0.4
+      }
+    ],
+    "JP (SSP)": [
+      {
+        "brand": "IMMUNIA",
+        "ibp": 19.6,
+        "prev": 19.4,
+        "budget": 19.0,
+        "vs_prev": 0.2,
+        "vs_budget": 0.6
+      },
+      {
+        "brand": "BRIGHTVUE",
+        "ibp": 1.9,
+        "prev": 2.0,
+        "budget": 1.9,
+        "vs_prev": -0.1,
+        "vs_budget": 0.0
+      },
+      {
+        "brand": "ACTIPURE",
+        "ibp": 20.2,
+        "prev": 20.0,
+        "budget": 19.6,
+        "vs_prev": 0.1,
+        "vs_budget": 0.6
+      },
+      {
+        "brand": "ZESTANO",
+        "ibp": 16.4,
+        "prev": 16.4,
+        "budget": 15.8,
+        "vs_prev": -0.0,
+        "vs_budget": 0.5
+      },
+      {
+        "brand": "REVITASOL",
+        "ibp": 13.1,
+        "prev": 13.2,
+        "budget": 13.0,
+        "vs_prev": -0.0,
+        "vs_budget": 0.1
+      }
+    ],
+    "SA": [
+      {
+        "brand": "THROATEASE",
+        "ibp": 27.0,
+        "prev": 26.7,
+        "budget": 26.2,
+        "vs_prev": 0.2,
+        "vs_budget": 0.8
+      },
+      {
+        "brand": "QUIETON",
+        "ibp": 6.7,
+        "prev": 6.8,
+        "budget": 6.6,
+        "vs_prev": -0.1,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "KIDDOSAN",
+        "ibp": 3.7,
+        "prev": 3.6,
+        "budget": 3.6,
+        "vs_prev": 0.1,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "RELIVON",
+        "ibp": 3.4,
+        "prev": 3.3,
+        "budget": 3.2,
+        "vs_prev": 0.0,
+        "vs_budget": 0.1
+      },
+      {
+        "brand": "DEFENSO",
+        "ibp": 11.7,
+        "prev": 11.7,
+        "budget": 11.4,
+        "vs_prev": -0.0,
+        "vs_budget": 0.3
+      }
+    ],
+    "Others": [
+      {
+        "brand": "LIFTORA",
+        "ibp": 1.5,
+        "prev": 1.5,
+        "budget": 1.5,
+        "vs_prev": -0.0,
+        "vs_budget": 0.0
+      }
+    ]
+  },
+  "cycles": {
+    "B26": 655.1,
+    "IBP": 674.7,
+    "IBP Dec-25": 663.6,
+    "IBP Feb-26": 670.9,
+    "IBP Jan-26": 667.9,
+    "IBP Nov-25": 662.9
+  },
+  "sanity": [
+    {
+      "zone": "AMET",
+      "country": "Algeria",
+      "next_3m": 195826,
+      "prev_3m": 179570,
+      "ly_same": 166390,
+      "growth_vs_prev": 9.1,
+      "growth_vs_ly": 17.7,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Angola",
+      "next_3m": 30125,
+      "prev_3m": 33269,
+      "ly_same": 27180,
+      "growth_vs_prev": -9.4,
+      "growth_vs_ly": 10.8,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Bahrain",
+      "next_3m": 22608,
+      "prev_3m": 23195,
+      "ly_same": 18786,
+      "growth_vs_prev": -2.5,
+      "growth_vs_ly": 20.3,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Egypt",
+      "next_3m": 297591,
+      "prev_3m": 302619,
+      "ly_same": 269322,
+      "growth_vs_prev": -1.7,
+      "growth_vs_ly": 10.5,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Iran",
+      "next_3m": 113144,
+      "prev_3m": 119937,
+      "ly_same": 115026,
+      "growth_vs_prev": -5.7,
+      "growth_vs_ly": -1.6,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Iraq",
+      "next_3m": 48191,
+      "prev_3m": 46994,
+      "ly_same": 42550,
+      "growth_vs_prev": 2.5,
+      "growth_vs_ly": 13.3,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Israel",
+      "next_3m": 231212,
+      "prev_3m": 223175,
+      "ly_same": 181605,
+      "growth_vs_prev": 3.6,
+      "growth_vs_ly": 27.3,
+      "severity": "medium",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Jordan",
+      "next_3m": 25212,
+      "prev_3m": 26511,
+      "ly_same": 23112,
+      "growth_vs_prev": -4.9,
+      "growth_vs_ly": 9.1,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Kuwait",
+      "next_3m": 58054,
+      "prev_3m": 76564,
+      "ly_same": 56656,
+      "growth_vs_prev": -24.2,
+      "growth_vs_ly": 2.5,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Lebanon",
+      "next_3m": 102996,
+      "prev_3m": 97302,
+      "ly_same": 86897,
+      "growth_vs_prev": 5.9,
+      "growth_vs_ly": 18.5,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Libya",
+      "next_3m": 37349,
+      "prev_3m": 34580,
+      "ly_same": 29300,
+      "growth_vs_prev": 8.0,
+      "growth_vs_ly": 27.5,
+      "severity": "medium",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Morocco",
+      "next_3m": 216005,
+      "prev_3m": 227154,
+      "ly_same": 189221,
+      "growth_vs_prev": -4.9,
+      "growth_vs_ly": 14.2,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Namibia",
+      "next_3m": 18438,
+      "prev_3m": 21402,
+      "ly_same": 16492,
+      "growth_vs_prev": -13.9,
+      "growth_vs_ly": 11.8,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Oman",
+      "next_3m": 61442,
+      "prev_3m": 77932,
+      "ly_same": 54646,
+      "growth_vs_prev": -21.2,
+      "growth_vs_ly": 12.4,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Pakistan",
+      "next_3m": 267653,
+      "prev_3m": 321902,
+      "ly_same": 298363,
+      "growth_vs_prev": -16.9,
+      "growth_vs_ly": -10.3,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Qatar",
+      "next_3m": 43999,
+      "prev_3m": 51234,
+      "ly_same": 43334,
+      "growth_vs_prev": -14.1,
+      "growth_vs_ly": 1.5,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "SSA HQ",
+      "next_3m": 28854,
+      "prev_3m": 36590,
+      "ly_same": 32356,
+      "growth_vs_prev": -21.1,
+      "growth_vs_ly": -10.8,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Saudi Arabia",
+      "next_3m": 1016771,
+      "prev_3m": 1314564,
+      "ly_same": 1011763,
+      "growth_vs_prev": -22.7,
+      "growth_vs_ly": 0.5,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "South Africa",
+      "next_3m": 329896,
+      "prev_3m": 323500,
+      "ly_same": 341289,
+      "growth_vs_prev": 2.0,
+      "growth_vs_ly": -3.3,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Sudan",
+      "next_3m": 229558,
+      "prev_3m": 234984,
+      "ly_same": 219847,
+      "growth_vs_prev": -2.3,
+      "growth_vs_ly": 4.4,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Tunisia",
+      "next_3m": 61110,
+      "prev_3m": 66206,
+      "ly_same": 59512,
+      "growth_vs_prev": -7.7,
+      "growth_vs_ly": 2.7,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "Turkey",
+      "next_3m": 1241346,
+      "prev_3m": 1201588,
+      "ly_same": 1007145,
+      "growth_vs_prev": 3.3,
+      "growth_vs_ly": 23.3,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "AMET",
+      "country": "UAE",
+      "next_3m": 880009,
+      "prev_3m": 801426,
+      "ly_same": 802702,
+      "growth_vs_prev": 9.8,
+      "growth_vs_ly": 9.6,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ANZ",
+      "country": "Australia",
+      "next_3m": 3347401,
+      "prev_3m": 4225664,
+      "ly_same": 3051928,
+      "growth_vs_prev": -20.8,
+      "growth_vs_ly": 9.7,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ANZ",
+      "country": "New Zealand",
+      "next_3m": 129203,
+      "prev_3m": 140692,
+      "ly_same": 115861,
+      "growth_vs_prev": -8.2,
+      "growth_vs_ly": 11.5,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "CBEC ASEA",
+      "next_3m": 45425,
+      "prev_3m": 39846,
+      "ly_same": 32161,
+      "growth_vs_prev": 14.0,
+      "growth_vs_ly": 41.2,
+      "severity": "high",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Cambodia",
+      "next_3m": 63160,
+      "prev_3m": 66524,
+      "ly_same": 60090,
+      "growth_vs_prev": -5.1,
+      "growth_vs_ly": 5.1,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Hong Kong",
+      "next_3m": 122447,
+      "prev_3m": 127710,
+      "ly_same": 115021,
+      "growth_vs_prev": -4.1,
+      "growth_vs_ly": 6.5,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Indonesia",
+      "next_3m": 983812,
+      "prev_3m": 958933,
+      "ly_same": 773103,
+      "growth_vs_prev": 2.6,
+      "growth_vs_ly": 27.3,
+      "severity": "medium",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Malaysia",
+      "next_3m": 587756,
+      "prev_3m": 591722,
+      "ly_same": 467655,
+      "growth_vs_prev": -0.7,
+      "growth_vs_ly": 25.7,
+      "severity": "medium",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Philippines",
+      "next_3m": 522547,
+      "prev_3m": 635341,
+      "ly_same": 491001,
+      "growth_vs_prev": -17.8,
+      "growth_vs_ly": 6.4,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "SEA China",
+      "next_3m": 71320,
+      "prev_3m": 57519,
+      "ly_same": 63886,
+      "growth_vs_prev": 24.0,
+      "growth_vs_ly": 11.6,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Singapore",
+      "next_3m": 345673,
+      "prev_3m": 354814,
+      "ly_same": 316655,
+      "growth_vs_prev": -2.6,
+      "growth_vs_ly": 9.2,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "South Korea",
+      "next_3m": 992890,
+      "prev_3m": 1076962,
+      "ly_same": 902933,
+      "growth_vs_prev": -7.8,
+      "growth_vs_ly": 10.0,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Taiwan",
+      "next_3m": 327770,
+      "prev_3m": 406715,
+      "ly_same": 380884,
+      "growth_vs_prev": -19.4,
+      "growth_vs_ly": -13.9,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Thailand",
+      "next_3m": 704754,
+      "prev_3m": 750096,
+      "ly_same": 562072,
+      "growth_vs_prev": -6.0,
+      "growth_vs_ly": 25.4,
+      "severity": "medium",
+      "insight": ""
+    },
+    {
+      "zone": "ASEA",
+      "country": "Vietnam",
+      "next_3m": 425463,
+      "prev_3m": 560872,
+      "ly_same": 479961,
+      "growth_vs_prev": -24.1,
+      "growth_vs_ly": -11.4,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "CN",
+      "country": "China",
+      "next_3m": 2106341,
+      "prev_3m": 2057489,
+      "ly_same": 1946633,
+      "growth_vs_prev": 2.4,
+      "growth_vs_ly": 8.2,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "JP (SSP)",
+      "country": "Japan JV",
+      "next_3m": 61219,
+      "prev_3m": 66801,
+      "ly_same": 50411,
+      "growth_vs_prev": -8.4,
+      "growth_vs_ly": 21.4,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "JP (SSP)",
+      "country": "Japan SSP",
+      "next_3m": 2261666,
+      "prev_3m": 2151657,
+      "ly_same": 1807116,
+      "growth_vs_prev": 5.1,
+      "growth_vs_ly": 25.2,
+      "severity": "medium",
+      "insight": ""
+    },
+    {
+      "zone": "SA",
+      "country": "Bangladesh",
+      "next_3m": 206961,
+      "prev_3m": 252586,
+      "ly_same": 204378,
+      "growth_vs_prev": -18.1,
+      "growth_vs_ly": 1.3,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "SA",
+      "country": "India",
+      "next_3m": 1308145,
+      "prev_3m": 1256964,
+      "ly_same": 1269485,
+      "growth_vs_prev": 4.1,
+      "growth_vs_ly": 3.0,
+      "severity": "normal",
+      "insight": ""
+    },
+    {
+      "zone": "SA",
+      "country": "Sri Lanka",
+      "next_3m": 110979,
+      "prev_3m": 90436,
+      "ly_same": 85527,
+      "growth_vs_prev": 22.7,
+      "growth_vs_ly": 29.8,
+      "severity": "medium",
+      "insight": ""
+    },
+    {
+      "zone": "Others",
+      "country": "International Entries",
+      "next_3m": 38648,
+      "prev_3m": 52111,
+      "ly_same": 45105,
+      "growth_vs_prev": -25.8,
+      "growth_vs_ly": -14.3,
+      "severity": "medium",
+      "insight": ""
+    }
+  ],
+  "executive": {
+    "cycle": "Feb-26",
+    "prev_cycle": "Jan-26",
+    "region": "AMEA",
+    "net_sales": {
+      "a_ly": 611.6,
+      "budget": 655.1,
+      "ibp_prev": 667.9,
+      "ibp_current": 670.9,
+      "vs_budget": 15.799999999999955,
+      "vs_budget_pct": 2.4,
+      "vs_prev": 3.0,
+      "vs_prev_pct": 0.4
+    },
+    "top_zone_movers": [
+      [
+        "ASEA",
+        1.0
+      ],
+      [
+        "AMET",
+        0.7
+      ],
+      [
+        "ANZ",
+        0.4
+      ]
+    ],
+    "quarterly": [
+      {
+        "q": "Q1",
+        "ibp": 173.7,
+        "vs_bud": 4.1,
+        "vs_prev": 0.9
+      },
+      {
+        "q": "Q2",
+        "ibp": 156.9,
+        "vs_bud": 3.4,
+        "vs_prev": 0.8
+      },
+      {
+        "q": "Q3",
+        "ibp": 162.2,
+        "vs_bud": 4.1,
+        "vs_prev": 0.8
+      },
+      {
+        "q": "Q4",
+        "ibp": 178.0,
+        "vs_bud": 4.2,
+        "vs_prev": 0.4
+      }
+    ],
+    "anomaly_count": 9,
+    "high_anomalies": [
+      {
+        "zone": "ASEA",
+        "country": "CBEC ASEA",
+        "g_prev": 14.0,
+        "insight": ""
+      }
+    ]
+  }
+}
