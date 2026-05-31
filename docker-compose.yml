@@ -3,12 +3,12 @@
 # Route a domain to this service on port 3100.
 
 services:
-  ibp-chat:
+  ibp-chat-skeleton:
     build:
       context: ./ibp-chat
       dockerfile: Dockerfile
-    image: ibp-chat:latest
-    container_name: ibp-chat
+    image: ibp-chat-skeleton:latest
+    container_name: ibp-chat-skeleton
     restart: unless-stopped
     environment:
       NODE_ENV: production
