@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Opella IBP Workshop — Ship a domain AI agent in 1 hour</title>
+<script>
+  (() => {
+    const param = new URLSearchParams(window.location.search).get("clawpilotTheme");
+    const theme =
+      param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.setAttribute("data-theme", theme);
+  })();
+</script>
+<style>
+  :root {
+    color-scheme: light;
+    --cp-bg: #f7f4ef;
+    --cp-bg-elevated: #fcfbf8;
+    --cp-surface: #ffffff;
+    --cp-surface-soft: #f5f5f5;
+    --cp-border: #dedede;
+    --cp-border-strong: #919191;
+    --cp-text: #242424;
+    --cp-text-muted: #5c5c5c;
+    --cp-text-soft: #6f6f6f;
+    --cp-accent: #b11f4b;
+    --cp-accent-hover: #9a1a41;
+    --cp-accent-soft: rgba(177, 31, 75, 0.08);
+    --cp-accent-fg: #ffffff;
+    --cp-success: #16a34a;
+    --cp-danger: #dc2626;
+    --cp-warning: #f59e0b;
+    --cp-link: #0078d4;
+    --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+    --cp-highlight: rgba(177, 31, 75, 0.12);
+  }
+  html[data-theme="dark"] {
+    color-scheme: dark;
+    --cp-bg: #3d3b3a;
+    --cp-bg-elevated: #343231;
+    --cp-surface: #292929;
+    --cp-surface-soft: #2e2e2e;
+    --cp-border: #474747;
+    --cp-border-strong: #5f5f5f;
+    --cp-text: #dedede;
+    --cp-text-muted: #919191;
+    --cp-text-soft: #b0b0b0;
+    --cp-accent: #fd8ea1;
+    --cp-accent-hover: #fb7b91;
+    --cp-accent-soft: rgba(253, 142, 161, 0.14);
+    --cp-accent-fg: #1a1a1a;
+    --cp-success: #4ade80;
+    --cp-danger: #f87171;
+    --cp-warning: #fbbf24;
+    --cp-link: #4da6ff;
+    --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+    --cp-highlight: rgba(253, 142, 161, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cp-bg);
+    color: var(--cp-text);
+    font-family: "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  code, pre { font-family: Consolas, "Courier New", Courier, monospace; }
+
+  .shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; }
+  @media (max-width: 900px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar { position: static !important; height: auto !important; border-right: none !important; border-bottom: 1px solid var(--cp-border); }
+  }
+
+  .sidebar {
+    background: var(--cp-bg-elevated);
+    border-right: 1px solid var(--cp-border);
+    padding: 24px 20px;
+    position: sticky; top: 0; height: 100vh; overflow-y: auto;
+  }
+  .sidebar h2 {
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--cp-text-muted); margin: 24px 0 8px; font-weight: 600;
+  }
+  .sidebar h2:first-of-type { margin-top: 0; }
+  .sidebar a {
+    display: block; padding: 6px 10px; margin: 2px -10px;
+    border-radius: 0.625rem; color: var(--cp-text); text-decoration: none; font-size: 14px;
+  }
+  .sidebar a:hover { background: var(--cp-accent-soft); color: var(--cp-accent); }
+  .sidebar .brand { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
+  .sidebar .brand-sub { font-size: 12px; color: var(--cp-text-muted); margin-bottom: 16px; }
+
+  .content { padding: 56px max(32px, 6vw) 96px; max-width: 980px; }
+
+  .theme-toggle {
+    position: fixed; top: 16px; right: 16px;
+    background: var(--cp-surface); border: 1px solid var(--cp-border); color: var(--cp-text);
+    border-radius: 999px; padding: 6px 12px; font-size: 13px; cursor: pointer; z-index: 50;
+    box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+  }
+  .theme-toggle:hover { border-color: var(--cp-accent); color: var(--cp-accent); }
+
+  .hero { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--cp-border); }
+  .hero .eyebrow {
+    display: inline-block; background: var(--cp-accent-soft); color: var(--cp-accent);
+    padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.04em; margin-bottom: 16px;
+  }
+  .hero h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.2; margin: 0 0 16px; letter-spacing: -0.01em; }
+  .hero p.lede { font-size: 18px; color: var(--cp-text-muted); margin: 0 0 24px; max-width: 740px; }
+
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 24px; }
+  .meta-card {
+    background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; padding: 14px 16px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+  }
+  .meta-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--cp-text-muted); margin-bottom: 4px; }
+  .meta-card .value { font-weight: 600; font-size: 15px; }
+
+  h2.section { font-size: 26px; margin: 64px 0 8px; letter-spacing: -0.01em; }
+  h2.section + p.section-sub { color: var(--cp-text-muted); margin: 0 0 24px; }
+
+  .loop { background: var(--cp-bg-elevated); border: 1px solid var(--cp-border); border-radius: 16px; padding: 28px 24px; margin: 16px 0 8px; }
+  .loop-row { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .loop-box { background: var(--cp-surface); border: 1px solid var(--cp-border-strong); border-radius: 10px; padding: 12px 18px; font-size: 13px; font-weight: 500; text-align: center; min-width: 110px; }
+  .loop-box.accent { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
+  .loop-arrow { color: var(--cp-text-muted); font-size: 20px; }
+  .loop-caption { text-align: center; color: var(--cp-text-muted); font-size: 13px; margin-top: 14px; font-style: italic; }
+
+  .stage {
+    background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px;
+    padding: 24px 28px; margin: 0 0 16px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14);
+    transition: border-color 0.15s ease;
+  }
+  .stage:hover { border-color: var(--cp-border-strong); }
+  .stage.feature { border-left: 4px solid var(--cp-accent); }
+  .stage-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+  .stage-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 999px;
+    background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 700; font-size: 14px; flex-shrink: 0;
+  }
+  .stage-title { font-size: 19px; font-weight: 600; margin: 0; flex: 1; min-width: 220px; }
+  .stage-time {
+    font-size: 13px; color: var(--cp-text-muted); background: var(--cp-surface-soft);
+    border: 1px solid var(--cp-border); padding: 3px 10px; border-radius: 999px; white-space: nowrap;
+  }
+  .stage-stretch {
+    font-size: 11px; color: var(--cp-warning); border: 1px solid var(--cp-warning); background: transparent;
+    padding: 2px 8px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .stage-goal { color: var(--cp-text-muted); margin: 0 0 16px; font-style: italic; }
+  .stage h4 {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--cp-text-muted); margin: 18px 0 6px; font-weight: 700;
+  }
+  .stage ol, .stage ul { padding-left: 22px; margin: 8px 0; }
+  .stage li { margin: 6px 0; }
+  .stage p { margin: 8px 0; }
+
+  pre {
+    background: var(--cp-bg-elevated); border: 1px solid var(--cp-border); border-radius: 10px;
+    padding: 12px 14px; overflow-x: auto; font-size: 13px; line-height: 1.55; margin: 10px 0;
+  }
+  code { background: var(--cp-surface-soft); border: 1px solid var(--cp-border); border-radius: 4px; padding: 1px 6px; font-size: 0.9em; }
+  pre code { background: transparent; border: none; padding: 0; font-size: inherit; }
+  .prompt {
+    border-left: 3px solid var(--cp-accent); background: var(--cp-accent-soft);
+    padding: 10px 16px; border-radius: 0 10px 10px 0; margin: 10px 0; font-style: italic;
+  }
+  .checks {
+    background: var(--cp-bg-elevated); border: 1px dashed var(--cp-border-strong);
+    border-radius: 10px; padding: 10px 16px; margin: 12px 0;
+  }
+  .checks ul { margin: 4px 0; padding-left: 22px; }
+  .checks li::marker { color: var(--cp-success); }
+
+  .footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 13px; }
+  .footer a { color: var(--cp-link); text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  .audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .audience-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; padding: 18px 20px; }
+  .audience-card h3 { font-size: 15px; margin: 0 0 6px; color: var(--cp-accent); }
+  .audience-card p { margin: 0; font-size: 14px; color: var(--cp-text-muted); }
+
+  .callout {
+    background: var(--cp-accent-soft); border-left: 3px solid var(--cp-accent);
+    border-radius: 0 10px 10px 0; padding: 12px 18px; font-style: italic; margin: 12px 0;
+  }
+  .try-before, .try-after {
+    border-radius: 10px; padding: 12px 18px; margin: 12px 0; border: 1px solid var(--cp-border);
+  }
+  .try-before {
+    background: rgba(245, 158, 11, 0.08); border-left: 3px solid var(--cp-warning);
+  }
+  .try-after {
+    background: rgba(22, 163, 74, 0.08); border-left: 3px solid var(--cp-success);
+  }
+  .try-before .label, .try-after .label {
+    display: inline-block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    font-weight: 700; margin-bottom: 6px;
+  }
+  .try-before .label { color: var(--cp-warning); }
+  .try-after .label { color: var(--cp-success); }
+  .try-before ul, .try-after ul { margin: 4px 0; padding-left: 22px; }
+
+  figure.shot {
+    margin: 16px 0; padding: 0;
+    border: 1px solid var(--cp-border); border-radius: 10px;
+    background: var(--cp-bg-elevated); overflow: hidden;
+  }
+  figure.shot img { display: block; width: 100%; height: auto; }
+  figure.shot figcaption {
+    padding: 8px 14px; font-size: 12px; color: var(--cp-text-muted);
+    border-top: 1px solid var(--cp-border); font-style: italic;
+  }
+  figure.shot figcaption a { color: var(--cp-link); text-decoration: none; }
+  figure.shot figcaption a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Theme</button>
+
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand">Opella IBP Workshop</div>
+      <div class="brand-sub">1 hour · Branch → PR → auto-deploy</div>
+
+      <h2>Overview</h2>
+      <a href="#prereq">Prerequisites</a>
+      <a href="#loop">The deploy loop</a>
+
+      <h2>The pitch</h2>
+      <a href="#pitch">Context</a>
+
+      <h2>The workshop</h2>
+      <a href="#stage-1">1 · Get your URL (5 min)</a>
+      <a href="#stage-2">2 · F1 — Model picker (8 min)</a>
+      <a href="#stage-3">3 · F2 — Inject IBP data (12 min)</a>
+      <a href="#stage-4">4 · F3 — Plan + tests (10 min)</a>
+      <a href="#stage-5">5 · F4 — Customize Copilot (8 min)</a>
+      <a href="#stage-7">6 · Wrap (4 min)</a>
+
+      <h2>Reference</h2>
+      <a href="#failure">If it breaks</a>
+      <a href="#cuts">If you're running short</a>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <span class="eyebrow">Workshop kit · 2026</span>
+        <h1>Ship a domain AI agent to a real URL in one hour.</h1>
+        <p class="lede">
+          Each attendee forks the skeleton repo, opens VS Code with GitHub Copilot, and ships four features
+          across four branches. Every merge to <code>main</code> triggers an automatic deploy on Dokploy to the
+          attendee's own URL. By the end, everyone has a working chat-over-IBP-data app they can hand to a planner.
+        </p>
+
+        <div class="meta-grid">
+          <div class="meta-card"><div class="label">Duration</div><div class="value">1 hour · 4 features · 4 deploys</div></div>
+          <div class="meta-card"><div class="label">Stack</div><div class="value">Remix · Vite · Tailwind · TS</div></div>
+          <div class="meta-card"><div class="label">Auth</div><div class="value">GitHub Copilot license only</div></div>
+          <div class="meta-card"><div class="label">Hosting</div><div class="value">Dokploy auto-deploy on merge</div></div>
+        </div>
+      </section>
+
+      <section id="prereq">
+        <h2 class="section">Prerequisites</h2>
+        <p class="section-sub">Send this list 48 hours before the workshop.</p>
+        <ul>
+          <li><strong>A GitHub account with an active Copilot license.</strong> The only credential the deployed app needs to call Claude / GPT / Gemini.</li>
+          <li><strong>Visual Studio Code with the GitHub Copilot extension.</strong> The in-editor Chat is what drives every implementation step.</li>
+          <li><strong>Git installed and signed in to GitHub</strong> (either <code>gh auth login</code> or HTTPS credentials in Git Credential Manager). Needed to push branches.</li>
+          <li><strong>A Copilot-scoped GitHub token saved in your Dokploy project as <code>GITHUB_TOKEN</code>.</strong> The deployed app reads it at runtime to talk to the Copilot API.
+            <ol style="margin-top: 8px;">
+              <li>Generate it once on your machine. First sign in to GitHub via the CLI as the account that owns your Copilot license (skip if <code>gh auth status</code> already shows you signed in as that account):
+                <pre style="background: var(--cp-bg-code); padding: 8px; border-radius: 4px; margin: 4px 0; font-size: 13px;"><code>gh auth login</code></pre>
+                Then add the <code>copilot</code> scope and print the token:
+                <pre style="background: var(--cp-bg-code); padding: 8px; border-radius: 4px; margin: 4px 0; font-size: 13px;"><code>gh auth refresh --scopes copilot
+gh auth status --show-token</code></pre>
+                Copy the value shown on the <code>Token:</code> line (starts with <code>gho_…</code> or <code>ghu_…</code>).
+              </li>
+              <li>In Dokploy: open your application → <strong>Environment</strong> tab → <strong>Add Variable</strong>. Paste a single line in the form:
+                <pre style="background: var(--cp-bg-code); padding: 8px; border-radius: 4px; margin: 4px 0; font-size: 13px;"><code>GITHUB_TOKEN=&lt;your token&gt;</code></pre>
+                Replace <code>&lt;your token&gt;</code> with the value you copied (no quotes, no spaces). Save.
+              </li>
+              <li>Click <strong>Redeploy</strong>. Once healthy, visit <code>https://&lt;your-domain&gt;/api/models</code> — you should see every model your GitHub organisation has enabled for Copilot (<strong>3 models</strong> in the Opella case). If you only see 0 or an error payload, the token is missing or lacks the <code>copilot</code> scope.</li>
+            </ol>
+            Never commit the token. Rotate with the same <code>gh auth refresh</code> command if it leaks.
+          </li>
+          <li><strong>Your Dokploy project URL</strong> — the facilitator provisions one per attendee and emails it the day before. This is where merges deploy to.</li>
+        </ul>
+        <p style="color: var(--cp-text-muted); font-size: 14px; margin-top: 16px;">
+          <strong>Node.js is not required.</strong> The app runs on Dokploy, not your laptop. If you want to preview a change locally before pushing,
+          install Node 22 LTS and run <code>npm install &amp;&amp; npm run dev</code> — but the workshop does not depend on it.
+        </p>
+      </section>
+
+      <section id="loop">
+        <h2 class="section">The deploy loop</h2>
+        <p class="section-sub">The same five-step cycle repeats for every feature.</p>
+        <div class="loop">
+          <div class="loop-row">
+            <div class="loop-box">git checkout -b feat/x</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-box accent">Copilot writes code</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-box">git push</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-box">PR + merge</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-box accent">Dokploy deploys</div>
+            <div class="loop-arrow">→</div>
+            <div class="loop-box">Refresh your URL</div>
+          </div>
+          <div class="loop-caption">
+            About 60–90 seconds from merge to live. Attendees run this loop five times in one hour.
+          </div>
+        </div>
+      </section>
+
+      <section id="pitch">
+        <h2 class="section">Context</h2>
+        <p>
+          Opella's Integrated Business Planning cycle moves <strong>tens of thousands of forecast rows every month</strong> across
+          44 AMEA countries, 7 zones, and ~50 brands. Today, when a planner wants to know <em>what moved between last cycle
+          and this cycle, and why</em>, the answer lives in a TM1 extract, a few pivot tables, and the heads of two or three people.
+          Surfacing one exception can take an afternoon. Surfacing the right exception in time for the Demand Review is the
+          difference between a decision and a postponement.
+        </p>
+        <p>
+          <strong>The goal of this project</strong> is to give every Opella supply chain person a small, owned, deployable AI
+          agent that sits on top of their own operational data and answers planner-grade questions in seconds — using only
+          the GitHub Copilot license they already have. No Foundry, no Azure provisioning, no ML team in the loop.
+          One license, one repo, one URL.
+        </p>
+        <p>
+          <strong>The goal of this workshop</strong> is to prove that loop end-to-end on a synthetic IBP dataset. By the time
+          you walk out of the room you will have shipped four features to a public URL using GitHub Copilot, and you will
+          know exactly which file to change to point the same agent at your own data on Monday morning.
+        </p>
+          <div class="callout">"What you ship in this workshop is what you take back to your team. Every feature is a branch you cut, a prompt you give Copilot, and a merge that goes live in 90 seconds. We do that four times."</div>
+      </section>
+
+      <h2 class="section">The workshop, step by step</h2>
+      <p class="section-sub">Stages marked <span class="stage-stretch">stretch</span> drop first if a feature takes longer than its budget.</p>
+
+      <article class="stage" id="stage-1">
+        <div class="stage-head">
+          <span class="stage-num">1</span>
+          <h3 class="stage-title">Fork the skeleton &amp; confirm your URL</h3>
+          <span class="stage-time">5 min</span>
+        </div>
+        <p class="stage-goal">Every attendee has a clone of the skeleton open in VS Code and a live (empty) deployment they can refresh.</p>
+        <h4>Steps</h4>
+        <ol>
+          <li>Open the skeleton repo URL the facilitator provided and click <strong>Fork</strong>.</li>
+          <li>Clone the fork locally: <code>git clone https://github.com/&lt;you&gt;/opella-ibp-skeleton.git</code></li>
+          <li>Open the folder in VS Code. Verify the Copilot extension is signed in (status bar bottom-right).</li>
+          <li>Open the Dokploy URL the facilitator emailed you. You should see a working <em>"Hello IBP"</em> chat page with a hard-coded model and no domain context.</li>
+        </ol>
+        <div class="checks">
+          <strong>Done when:</strong>
+          <ul>
+            <li>Your fork is on github.com under your account.</li>
+            <li>VS Code shows the project tree with <code>app/lib/copilot.server.ts</code> visible.</li>
+            <li>Your Dokploy URL loads and lets you type a message that gets some answer back.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="stage feature" id="stage-2">
+        <div class="stage-head">
+          <span class="stage-num">2</span>
+          <h3 class="stage-title">Feature 1 — Model picker</h3>
+          <span class="stage-time">8 min</span>
+        </div>
+        <p class="stage-goal">First trip around the deploy loop. Replace the hard-coded model with a dropdown of every model the Copilot license can reach.</p>
+
+        <h4>Concept (HoL Level 3 — Code Generation)</h4>
+        <p>This is the simplest use of Copilot Agent mode: hand it a small, well-scoped multi-file edit and let it ship. The goal is to feel the loop, not to write impressive code.</p>
+
+        <h4>Why it matters</h4>
+        <p>Different planner questions deserve different models. <em>"Summarise this cycle in three bullets"</em> is a job for a cheap, fast model; <em>"reconcile these four cycles and explain the divergence"</em> is a job for a frontier reasoning model. Hard-coding one wastes the rest of the Opella Copilot license. This feature makes the agent <strong>model-portable from day one</strong>.</p>
+
+        <h4>Branch &amp; prompt</h4>
+        <pre><code>git checkout -b feat/model-picker</code></pre>
+        <div class="prompt">
+          In <code>app/lib/copilot.server.ts</code> there is already a <code>getClient()</code> singleton. Add a new exported function <code>listModels()</code> that calls <code>client.listModels()</code> and returns <code>[{ id, name }]</code>. Then create <code>app/routes/api.models.ts</code> that exports a <code>loader</code> returning <code>{ models }</code>. Update <code>app/routes/home.tsx</code> to fetch <code>/api/models</code> in a <code>useEffect</code>, render a <code>&lt;select&gt;</code> next to the input, and send the chosen <code>model</code> in the POST body to <code>/api/chat</code>. Register the new route in <code>app/routes.ts</code>.
+        </div>
+
+        <h4>Ship</h4>
+        <pre><code>git add -A &amp;&amp; git commit -m "feat: model picker" &amp;&amp; git push -u origin feat/model-picker</code></pre>
+        <p>Merge the PR. Watch Dokploy redeploy. Refresh — the dropdown is there.</p>
+
+        <div class="try-after">
+          <span class="label">Re-test the same prompt</span>
+          <p style="margin:4px 0 6px;">Pick a small/fast model (e.g. <code>gpt-4o-mini</code>) and ask the exact same question you asked before:</p>
+          <div class="prompt" style="margin:4px 0;">Summarise this IBP cycle for AMEA in three bullets.</div>
+          <p style="margin:6px 0;">Now switch the dropdown to a frontier reasoning model (e.g. <code>claude-sonnet-4.5</code> or <code>gpt-5</code>) and re-send. The voice, length, and depth of the answer change visibly — same prompt, different model, no code change. The agent is now <strong>model-portable</strong>.</p>
+        </div>
+
+        <div class="checks">
+          <strong>Done when:</strong>
+          <ul>
+            <li>The URL shows a model dropdown populated with every model your GitHub organisation has enabled for Copilot (<strong>3 models</strong> for Opella).</li>
+            <li>Switching models and re-asking the same question returns answers in different voices.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="stage feature" id="stage-3">
+        <div class="stage-head">
+          <span class="stage-num">3</span>
+          <h3 class="stage-title">Feature 2 — Inject the IBP data context</h3>
+          <span class="stage-time">12 min</span>
+        </div>
+        <p class="stage-goal">Turn a generic chat into a <strong>domain agent</strong>. The model now answers using the real synthetic IBP numbers, every turn.</p>
+
+        <h4>Concept (HoL Level 3 — Refactoring + Role Prompting)</h4>
+        <p>Two HoL techniques applied at once: agent-mode multi-file refactoring (create the prompt module, wire it into the chat action) and <em>role prompting</em> — telling the model exactly who it is, what data it may use, and what answer shape is acceptable.</p>
+
+        <h4>Why it matters</h4>
+        <p>A generic chatbot tells a planner what "IBP" stands for. A grounded agent tells them <em>"Net Sales for ANZ dropped €4.2M between IBP Jan and IBP Feb, mostly carried by Australia and concentrated in two brands — here is what to validate before the Demand Review."</em> The difference is whether the model is allowed to invent or forced to cite. We do this with a static JSON file — no vector DB, no retraining. The same pattern works for any structured operational dataset.</p>
+
+        <div class="try-before">
+          <span class="label">Try it first (before you implement)</span>
+          <p style="margin:4px 0 6px;">On your live URL — <em>with any model picked</em> — ask a specific, grounded question:</p>
+          <div class="prompt" style="margin:4px 0;">What is Net Sales for ANZ in the latest IBP cycle, in EUR millions? And which zone moved the most vs the previous cycle?</div>
+          <p style="margin:6px 0 0;">Watch what comes back. You will see one of three failure modes: (a) the model refuses because it has no data, (b) it gives a generic IBP explainer, or (c) it <strong>invents a number</strong> that looks plausible. None of those are usable in a Demand Review. The model has no access to your dataset — it is guessing. This feature gives it one.</p>
+        </div>
+
+        <h4>Branch &amp; prompt</h4>
+        <pre><code>git checkout main &amp;&amp; git pull &amp;&amp; git checkout -b feat/ibp-context</code></pre>
+        <div class="prompt">
+          The file <code>public/ibp-data-summary.json</code> contains a structured summary of the AMEA IBP dataset. Create <code>app/lib/prompts.server.ts</code> that: (1) reads the JSON once on startup and caches it; (2) exports <code>buildDataContext()</code> returning a Markdown block under 1,500 characters with three tables (meta header, Net Sales overview, zone-level breakdown); (3) exports a <code>SYSTEM_PROMPT</code> constant that names the persona <strong>"IBP demand-review analyst for Opella AMEA"</strong>, restricts the model to the data in the CONTEXT block, requires EUR millions to one decimal, and forces the answer shape <em>what changed → why → what to validate</em>. Then update <code>app/routes/api.chat.ts</code> so the action composes <code>SYSTEM_PROMPT + "\n\nCONTEXT:\n" + buildDataContext()</code> and passes it as the <code>systemMessage</code> when creating the Copilot session.
+        </div>
+
+        <h4>Ship &amp; verify</h4>
+        <pre><code>git add -A &amp;&amp; git commit -m "feat: inject IBP data context" &amp;&amp; git push -u origin feat/ibp-context</code></pre>
+        <p>Merge. Wait ~90s. Refresh.</p>
+
+        <div class="try-after">
+          <span class="label">Re-test the same prompt</span>
+          <p style="margin:4px 0 6px;">Ask the <em>exact same question</em> you asked before the implementation:</p>
+          <div class="prompt" style="margin:4px 0;">What is Net Sales for ANZ in the latest IBP cycle, in EUR millions? And which zone moved the most vs the previous cycle?</div>
+          <p style="margin:6px 0;">The answer is now a specific zone, a specific number in EUR millions to one decimal, and follows the <em>what changed → why → what to validate</em> shape. Then push it harder:</p>
+          <div class="prompt" style="margin:4px 0;">Which countries moved the most between the last IBP cycle and this one? Top three with delta in EUR millions, plus your best guess at the driver.</div>
+          <p style="margin:6px 0 0;"><strong>This is the moment the chat becomes an agent.</strong> Same model, same prompt as before — but a completely different class of answer, because the model now has the data and the persona.</p>
+        </div>
+      </article>
+
+      <article class="stage feature" id="stage-4">
+        <div class="stage-head">
+          <span class="stage-num">4</span>
+          <h3 class="stage-title">Feature 3 — Plan-then-implement with tests</h3>
+          <span class="stage-time">10 min</span>
+        </div>
+        <p class="stage-goal">Use <strong>Plan mode</strong> to design a small feature, then hand the plan to <strong>Agent mode</strong> to implement it with unit tests in one flow.</p>
+
+        <h4>Concept (HoL Level 4 — Plan &amp; Implement, plus L3 Tests generation)</h4>
+        <p>Agent mode without a plan tends to over-edit. Plan mode reads the codebase, proposes a structured TODO, asks clarifying questions, and only then hands off to Agent to ship. The deliverable here is a tiny but real one: a server-side helper that ranks the top movers, plus Vitest tests — the kind of code you do want test coverage on the day a planner cites the output in a Demand Review.</p>
+
+        <h4>Why it matters</h4>
+        <p>The fast path — "just ask Agent" — works for trivial edits and collapses for anything else. Plan-mode is the difference between an agent that ships your idea and one that ships <em>its</em> idea. And once you ask for tests up front, you stop merging code that hallucinates a column name your dataset doesn't have.</p>
+
+        <div class="callout"><strong>Tests gate the deploy.</strong> The skeleton's <code>Dockerfile</code> runs <code>npm test --if-present</code> during the build stage. Before this feature there is no <code>test</code> script, so the step is a no-op and deploys go through. The moment you add Vitest and a <code>"test"</code> script in <code>package.json</code>, every Dokploy build runs the suite — and a single failing test fails the build and blocks the deploy. From now on, broken tests never reach your URL.</div>
+
+        <div class="try-before">
+          <span class="label">Try it first (before you implement)</span>
+          <p style="margin:4px 0 6px;">On your live URL ask:</p>
+          <div class="prompt" style="margin:4px 0;">Show me the top movers across AMEA this cycle, ranked by absolute Net Sales delta in EUR millions.</div>
+          <p style="margin:6px 0 6px;">The agent has zone-level data from Feature 2 but <strong>no ranking helper</strong>. The answer will be vague ("a few zones moved noticeably"), or it will eyeball the zone table and miss country-level granularity, or it will return an ordering that disagrees between runs. Also try, from your local clone:</p>
+          <pre style="margin:4px 0;"><code>npm test</code></pre>
+          <p style="margin:6px 0 0;">There is no <code>test</code> script yet, so npm prints <em>"Missing script: test"</em>. The Dockerfile's <code>npm test --if-present</code> step is currently a no-op — nothing protects <code>main</code> from a regression.</p>
+        </div>
+
+        <h4>Branch &amp; flow</h4>
+        <pre><code>git checkout main &amp;&amp; git pull &amp;&amp; git checkout -b feat/top-movers</code></pre>
+        <p>Open a new Copilot Chat in <strong>Plan</strong> mode (premium model: GPT-5 or Claude Sonnet 4.5). Paste:</p>
+        <div class="prompt">
+          I want a new server-only helper <code>app/lib/movers.server.ts</code> exporting <code>topMovers(n: number)</code> that reads the cached IBP summary and returns the <code>n</code> countries with the largest absolute Net Sales delta between the two most recent IBP cycles, as <code>{ country, zone, deltaMEur, direction }[]</code>. Wire it into <code>buildDataContext()</code> as a fourth Markdown table called <strong>Top movers</strong>. Add a <code>vitest</code> test file <code>app/lib/movers.test.ts</code> with at least four positive and two negative cases against the shipped synthetic summary. Use the project's existing TypeScript and Tailwind conventions. Write the complete plan out in Markdown first; do not implement yet.
+        </div>
+        <p>Review the plan. Answer any clarifying questions. Click <strong>Start Implementation</strong> (or switch to Agent and type <em>Start Implementation</em>). When it's done, run <code>npm test</code> in the integrated terminal — all tests should pass before you commit. Push a deliberately broken test first if you want to see the Dokploy build fail: the deploy will not proceed until the suite is green.</p>
+
+        <h4>Ship</h4>
+        <pre><code>git add -A &amp;&amp; git commit -m "feat: top-movers helper + vitest" &amp;&amp; git push -u origin feat/top-movers</code></pre>
+        <p>Merge. Watch the Dokploy build log — the <code>RUN npm test --if-present</code> step now actually runs Vitest and the line count of test output is real. Refresh your URL.</p>
+
+        <div class="try-after">
+          <span class="label">Re-test the same prompts</span>
+          <p style="margin:4px 0 6px;">Re-send the exact prompt from before:</p>
+          <div class="prompt" style="margin:4px 0;">Show me the top movers across AMEA this cycle, ranked by absolute Net Sales delta in EUR millions.</div>
+          <p style="margin:6px 0;">The answer now cites the new <strong>Top movers</strong> table verbatim — same N rows, same numbers, same ordering on every retry. And locally:</p>
+          <pre style="margin:4px 0;"><code>npm test</code></pre>
+          <p style="margin:6px 0 0;">Vitest now runs and prints green. Optional: break one expectation in <code>app/lib/movers.test.ts</code>, push it, and watch the Dokploy build fail at the test step before the container is ever built. Revert, push again, deploy succeeds. The pipeline is now genuinely guarded.</p>
+        </div>
+      </article>
+
+      <article class="stage feature" id="stage-5">
+        <div class="stage-head">
+          <span class="stage-num">5</span>
+          <h3 class="stage-title">Feature 4 — Customize Copilot for the IBP repo</h3>
+          <span class="stage-time">8 min</span>
+        </div>
+        <p class="stage-goal">Add a <code>.github/copilot-instructions.md</code> plus one scoped <code>.instructions.md</code> so every teammate (and every Copilot session) inherits the same IBP conventions automatically.</p>
+
+        <h4>Concept (HoL Level 5 — Custom Instructions)</h4>
+        <p>Instructions files are repo-scoped meta-prompts. They ship with the code, apply to every Copilot session anyone opens against the repo, and can be filtered to specific file globs via the <code>applyTo</code> front-matter. This is how a team enforces "don't invent column names, use EUR millions, never put server-only code in client bundles" without re-typing it in every prompt.</p>
+
+        <h4>Why it matters</h4>
+        <p>Workshop-day quality drops the moment a second person joins the repo. Custom instructions are the cheapest, most durable answer: they turn one person's hard-won prompt discipline into a team default that survives the next refactor.</p>
+
+        <div class="try-before">
+          <span class="label">Try it first (before you implement)</span>
+          <p style="margin:4px 0 6px;">In VS Code, open a fresh Copilot Chat in <strong>Ask</strong> mode (no files attached) and ask:</p>
+          <div class="prompt" style="margin:4px 0;">What stack does this project use? What's the answer shape for IBP questions? Where can I put server-only code?</div>
+          <p style="margin:6px 0 0;">Copilot will guess from package.json — generic Remix advice, no mention of EUR millions, no <em>what changed → why → what to validate</em>, no warning about <code>.server.ts</code> never being imported from a client component. Every new teammate starts here. That's the gap.</p>
+        </div>
+
+        <h4>Branch &amp; prompt</h4>
+        <pre><code>git checkout main &amp;&amp; git pull &amp;&amp; git checkout -b feat/copilot-instructions</code></pre>
+        <div class="prompt">
+          Create <code>.github/copilot-instructions.md</code> with: (1) the project context (Remix + Vite + Tailwind + TS strict, GitHub Copilot SDK, synthetic IBP dataset, deploys via Dokploy on merge to main); (2) the domain rules from <code>SYSTEM_PROMPT</code> in <code>app/lib/prompts.server.ts</code> (EUR millions one decimal, <em>what changed → why → what to validate</em>, never invent numbers); (3) the WEBMAR-aligned stack rules (Remix preferred, no Next.js, no Java, no GraphQL, Prisma for ORM, PostgreSQL). Then create <code>.github/instructions/server-only.instructions.md</code> with front-matter <code>applyTo: "app/**/*.server.ts"</code> and one rule: "Never import this module from a route's client component. Always re-export through a Remix <code>loader</code> or <code>action</code>."
+        </div>
+
+        <h4>Ship</h4>
+        <pre><code>git add -A &amp;&amp; git commit -m "chore: copilot instructions" &amp;&amp; git push -u origin feat/copilot-instructions</code></pre>
+        <p>Merge. The deploy will be a no-op (no runtime code changed) but the PR is the educational artifact — from now on every Copilot session on this repo inherits these rules.</p>
+
+        <div class="try-after">
+          <span class="label">Re-test the same prompt</span>
+          <p style="margin:4px 0 6px;">Pull the merged branch (<code>git checkout main &amp;&amp; git pull</code>), open a fresh Copilot Chat, and ask the exact same question:</p>
+          <div class="prompt" style="margin:4px 0;">What stack does this project use? What's the answer shape for IBP questions? Where can I put server-only code?</div>
+          <p style="margin:6px 0 0;">The answer now names Remix + Vite + Tailwind + TS strict, calls out WEBMAR rules (no Next.js, no Java, no GraphQL), states EUR millions to one decimal and the <em>what changed → why → what to validate</em> shape, and warns about importing <code>*.server.ts</code> from client routes. Same question, same model — but the repo now teaches itself.</p>
+        </div>
+      </article>
+
+      <article class="stage" id="stage-7">
+        <div class="stage-head">
+          <span class="stage-num">7</span>
+          <h3 class="stage-title">Wrap &amp; take-home</h3>
+          <span class="stage-time">4 min</span>
+        </div>
+        <p class="stage-goal">Every attendee leaves with a URL they can share and a clear path to point this at their own data.</p>
+        <ul>
+          <li><strong>Your URL is yours.</strong> The Dokploy project keeps running. Share it with a colleague before you leave the room.</li>
+          <li><strong>To point it at your own data:</strong> replace <code>public/ibp-data-summary.json</code> with a JSON file of the same shape produced from your dataset, then update <code>SYSTEM_PROMPT</code> in <code>app/lib/prompts.server.ts</code>. Open a PR. Merge. Done.</li>
+          <li><strong>What you really took home:</strong> not just five features, but the patterns underneath — Plan mode, custom instructions, reusable prompts, custom agents. The same patterns apply to every codebase you own.</li>
+          <li><strong>To go deeper:</strong> the full reference app in this same repo shows streaming responses, persistent multi-turn sessions, and file upload. Open the source and ask <code>IBPAnalyst</code> to explain any piece you want.</li>
+        </ul>
+        <p style="margin-top: 20px; font-size: 17px; color: var(--cp-accent); font-style: italic;">
+          One license, your own data, a working agent on a real URL — in one hour.
+        </p>
+      </article>
+
+      <section id="failure">
+        <h2 class="section">If it breaks</h2>
+        <p class="section-sub">The five failure modes you'll actually see, in priority order.</p>
+
+        <h4 style="text-transform: none; font-size: 16px; color: var(--cp-text); letter-spacing: 0; font-weight: 600;">1. Dokploy didn't redeploy after my merge</h4>
+        <p>Check the Dokploy dashboard for your project. Look at the most recent deploy log. The two most common causes are a TypeScript compile error from a Copilot suggestion that <code>npm run dev</code> would have caught locally, or — from Feature 3 onwards — a failing Vitest run. The Docker build stage prints both: scroll to the <code>RUN npm test --if-present</code> step to see Vitest output. Open the failing file, ask Copilot Chat to fix the specific error message, push a fixup commit.</p>
+
+        <h4 style="text-transform: none; font-size: 16px; color: var(--cp-text); letter-spacing: 0; font-weight: 600;">2. The model returns "no models available" or auth errors</h4>
+        <p>The Dokploy environment variable <code>GITHUB_TOKEN</code> is missing the <code>copilot</code> scope. The facilitator regenerates it with <code>gh auth refresh --scopes copilot &amp;&amp; gh auth status --show-token</code> and updates the Dokploy env. Redeploy.</p>
+
+        <h4 style="text-transform: none; font-size: 16px; color: var(--cp-text); letter-spacing: 0; font-weight: 600;">3. Deploy fails with <code>Conflict. The container name "/ibp-chat-skeleton" is already in use</code></h4>
+        <p>Another Dokploy app on the same VM already grabbed that container name. Docker container names are <strong>host-wide unique</strong>, so two deploys cannot both call themselves <code>ibp-chat-skeleton</code>. Open <code>docker-compose.yml</code> at the root of your fork and rename the service, image, and <code>container_name</code> to something attendee-specific (for example <code>ibp-chat-anna</code>):</p>
+        <pre><code>services:
+  ibp-chat-anna:           # was: ibp-chat-skeleton
+    build:
+      context: ./ibp-chat
+      dockerfile: Dockerfile
+    image: ibp-chat-anna:latest
+    container_name: ibp-chat-anna
+    ...</code></pre>
+        <p>Commit, push, redeploy. If the old <code>ibp-chat-skeleton</code> container belongs to a previous test of yours, you can also free the name with <code>docker rm -f ibp-chat-skeleton</code> from the VM — but renaming is the safer default in a shared workshop environment.</p>
+
+        <h4 style="text-transform: none; font-size: 16px; color: var(--cp-text); letter-spacing: 0; font-weight: 600;">4. The deploy says it succeeded but my URL returns <code>404 page not found</code></h4>
+        <p>Container is running, but <strong>Traefik has no router for your hostname</strong>. Dokploy injects the Traefik labels (<code>traefik.http.routers.*</code>, <code>traefik.http.services.*</code>) <em>only at deploy time, and only if the Domain form has a Service Name selected</em>. Most often the Service Name dropdown was left empty when the Domain was created, so the labels were never written.</p>
+        <p>Fix in the Dokploy UI:</p>
+        <ol>
+          <li>Open your app → <strong>Domains</strong> tab.</li>
+          <li>Verify the entry: <strong>Host</strong> = your hostname · <strong>Service Name</strong> = the service from <code>docker-compose.yml</code> (e.g. <code>ibp-chat-anna</code>, <strong>not empty</strong>) · <strong>Port</strong> = <code>3100</code> · <strong>HTTPS</strong> ON with Let's Encrypt.</li>
+          <li><strong>Save</strong>.</li>
+          <li><strong>Deployments</strong> tab → <strong>Redeploy</strong>. This is required — saving the Domain alone does not regenerate the Traefik labels on the running container.</li>
+          <li>Wait ~30 seconds, refresh your URL.</li>
+        </ol>
+        <p>To confirm it's a labels issue (for the facilitator): <code>docker inspect &lt;container&gt; --format '{{json .Config.Labels}}'</code> on the VM. A healthy deploy shows ~12 <code>traefik.*</code> labels; a broken one shows none.</p>
+
+        <h4 style="text-transform: none; font-size: 16px; color: var(--cp-text); letter-spacing: 0; font-weight: 600;">5. Every attendee gets the same error simultaneously</h4>
+        <p>Copilot service issue, not your code. Switch models from the dropdown. If all models fail, the facilitator walks the room through the reference app's source on screen for the remaining time. The architecture lesson still lands.</p>
+      </section>
+
+      <section id="cuts">
+        <h2 class="section">If you're running short</h2>
+        <p class="section-sub">Cut in this order. Each cut buys ~8 minutes.</p>
+        <ol>
+          <li><strong>Drop Feature 4 (Stage 5).</strong> The agent is fully working at the end of Feature 3.</li>
+          <li><strong>Demo Feature 1 instead of having attendees ship it.</strong> The facilitator does the model picker as a live narrated demo; attendees only ship Features 2 and 3.</li>
+        </ol>
+        <p><strong>Do not cut Stages 1, 3, or 4.</strong> They are the spine: own a URL → ship a grounded agent → learn Plan mode.</p>
+      </section>
+
+      <footer class="footer">
+        <p>
+          Workshop materials in <a href="https://github.com/bguerin_microsoft/opella-ibp">opella-ibp</a> ·
+          Reference app: <code>ibp-chat/</code> ·
+          Curriculum source: <code>workshop/01-curriculum.md</code>
+        </p>
+        <p>Screenshots illustrating Copilot UI patterns (model selector, Plan agent, custom instructions, reusable prompts, custom agents) are reused with attribution from the <a href="https://moaw.dev/workshop/gh:Philess/GHCopilotHoL/main/docs/">GitHub Copilot Hands-on Lab by Philippe Didiergeorges (@Philess)</a> — the workshop that inspired several of the techniques shown here. Source repo: <a href="https://github.com/Philess/GHCopilotHoL">Philess/GHCopilotHoL</a>.</p>
+        <p>All data shipped in this repo is synthetic. Real Opella data is not in this set.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+    });
+    document.querySelectorAll(".sidebar a").forEach(a => {
+      a.addEventListener("click", e => {
+        const id = a.getAttribute("href");
+        if (id && id.startsWith("#")) {
+          const el = document.querySelector(id);
+          if (el) {
+            e.preventDefault();
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.replaceState(null, "", id);
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
